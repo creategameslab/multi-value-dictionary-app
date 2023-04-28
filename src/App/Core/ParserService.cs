@@ -26,7 +26,12 @@ public sealed class ParserService
 
     public void ProcessInput(ReadOnlySpan<char> input)
     {
-        if (input.Length < 1) Console.WriteLine("Invalid command.");
+        if (input.Length < 1)
+        {
+            Console.WriteLine("Invalid command.");
+
+            return;
+        }
 
         var commandIndex = input.IndexOf(' ');
         var hasParameters = commandIndex > -1;
