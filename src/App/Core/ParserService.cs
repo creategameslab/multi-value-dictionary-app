@@ -1,5 +1,6 @@
 ﻿using App.Core.Commands;
 using App.Core.Contracts;
+using App.Core.Exceptions;
 using System.Collections.Immutable;
 
 namespace App.Core;
@@ -49,14 +50,9 @@ public sealed class ParserService
 
                 command.Run(_repository, commandParameters?.ToArray());
             }
-            catch (KeyNotFoundException)
-            {
-                Console.WriteLine("Error, key does not exist.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            catch (KeyNotFoundException) { Console.WriteLine("Error, key does not exist."); }
+            catch (InvalidParameterException invalidEx) { Console.WriteLine(invalidEx.Message); }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
             Console.WriteLine(Separator);
             

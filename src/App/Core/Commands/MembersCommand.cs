@@ -1,4 +1,5 @@
 ﻿using App.Core.Contracts;
+using App.Core.Exceptions;
 using System.ComponentModel;
 
 namespace App.Core.Commands;
@@ -20,9 +21,6 @@ public sealed class MembersCommand : CommandBase
             foreach (var member in members)
                 Console.WriteLine(member);
         }
-        else
-        {
-            Console.WriteLine("Error, invalid format -> ex: MEMBERS keyname, MEMBERS foo");
-        }
+        else throw new InvalidParameterException($"Error, invalid command parameters. Missing key/value.");
     }
 }

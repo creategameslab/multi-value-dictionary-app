@@ -1,4 +1,5 @@
 ﻿using App.Core.Contracts;
+using App.Core.Exceptions;
 using System.ComponentModel;
 
 namespace App.Core.Commands;
@@ -13,7 +14,7 @@ public sealed class RemoveAllCommand : CommandBase
 
     public override void Run(IMultiValueRepository repository, params string[] commandParams)
     {
-        if (commandParams.Length > 0)
+        if (commandParams?.Length > 0)
         {
             var key = commandParams[0];
 
@@ -23,9 +24,6 @@ public sealed class RemoveAllCommand : CommandBase
                 Console.WriteLine("Removed");
             }
         }
-        else
-        {
-            Console.WriteLine("Error, invalid format -> ex: REMOVEALL keyname, REMOVEALL foo");
-        }
+        else throw new InvalidParameterException($"Error, invalid command parameters. Missing key/value.");
     }
 }

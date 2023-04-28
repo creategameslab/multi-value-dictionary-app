@@ -1,4 +1,5 @@
 ﻿using App.Core.Contracts;
+using App.Core.Exceptions;
 using System.ComponentModel;
 
 namespace App.Core.Commands;
@@ -13,7 +14,7 @@ public sealed class MemberExistsCommand : CommandBase
 
     public override void Run(IMultiValueRepository repository, params string[] commandParams)
     {
-        if (commandParams.Length > 1)
+        if (commandParams?.Length > 1)
         {
             var key = commandParams[0];
             var value = commandParams[1];
@@ -25,11 +26,10 @@ public sealed class MemberExistsCommand : CommandBase
                     var result = repository.DoesSetContainsValue(key, value);
                     Console.WriteLine(result.ToString().ToLowerInvariant());
                 }
+                else throw new InvalidParameterException($"Error, invalid command parameters. Missing or empty value.");
             }
+            else throw new InvalidParameterException($"Error, invalid command parameters. Missing or empty key.");
         }
-        else
-        {
-            Console.WriteLine($"Error, invalid format -> ex: {Key} keyname valuename, {Key} foo bar");
-        }
+        else throw new InvalidParameterException($"Error, invalid command parameters. Missing key/value.");
     }
 }
