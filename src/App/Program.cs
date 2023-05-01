@@ -19,9 +19,6 @@ namespace App
 
             while (true)
             {
-                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
-                    return;
-
                 parserService.ProcessInput(Console.ReadLine());
             }
         }

@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace App.Core.Commands;
 
-[Description("Exit: closes the application, or use ESC.")]
+[Description("Exit: closes the application.")]
 public sealed class ExitCommand : CommandBase
 {
     public ExitCommand() : base("Exit") { }
